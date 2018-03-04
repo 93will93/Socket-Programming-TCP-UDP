@@ -19,13 +19,12 @@ connectionSocket, address = serverSocket.accept()
 # at the other side but also guaranteed arrive in order."
 sentence = ''
 bufferSize = 1024
-
-sentence = connectionSocket.recv(bufferSize).decode("UTF-8")
-# 1024 = the receive buffer size
-print(sentence)
-# Doing server manipulation on received data
-capitalizedSentence = sentence.upper()
-# sending modified data back to client
-connectionSocket.sendall(capitalizedSentence.encode("UTF-8"))
-
+while sentence != 'stop':
+    sentence = connectionSocket.recv(bufferSize).decode("UTF-8")
+    # 1024 = the receive buffer size
+    print(sentence)
+    # Doing server manipulation on received data
+    capitalizedSentence = sentence.upper()
+    # sending modified data back to client
+    connectionSocket.send(capitalizedSentence.encode("UTF-8"))
 connectionSocket.close()
